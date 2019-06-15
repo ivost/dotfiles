@@ -3,7 +3,7 @@
 #echo **🔥
 
 
-export PS1="\W $"
+export PS1="\W$ "
 
 #MYIP=$(ifconfig | grep 'inet addr:'| grep -v '127.0.0.1' | tail -1 | cut -d: -f2 | awk '{ print $1}')
 #export PS1=$MYIP" \W $"
@@ -19,9 +19,6 @@ alias diff='diff -u'x
 
 alias k='kubectl'
 alias kc='kubectl create'
-
-alias rt='redis-cli -p 6379'
-alias rd='redis-cli -p 6380'
 
 alias k9='kill -9'
 alias l='ls -1'
