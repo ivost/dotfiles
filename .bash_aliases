@@ -216,6 +216,15 @@ a gmt='go mod tidy'
 
 alias ENV=export
 
+
+#echo "docker system prune -f"
+#docker system prune -f
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/ivos/tools/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/ivos/tools/google-cloud-sdk/completion.bash.inc'; fi
+
+<<"COMMENT"
+
 ENV KONG_DATABASE=off
 ENV KONG_NGINX_DAEMON=off
 ENV KONG_DECLARATIVE_CONFIG=${KONG_PREFIX}/kong.yml
@@ -231,13 +240,6 @@ ENV KONG_DECLARATIVE_CONFIG=${KONG_PREFIX}/kong.yml
 #export SERIAL_PORT=/dev/cu.usbserial-1410
 #a cdap='cd $AMB_ROOT/boards/SparkFun_Edge_BSP'
 
-echo "docker system prune -f"
-docker system prune -f
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/ivos/tools/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/ivos/tools/google-cloud-sdk/completion.bash.inc'; fi
-
-<<"COMMENT"
 sudo ifconfig lo0 alias 10.200.10.1/24
 export DOCKER_HOST_IP=10.200.10.1
 
