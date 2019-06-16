@@ -316,10 +316,9 @@ COMMENT
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
 # The next line updates PATH for the Google Cloud SDK.
-test -e "${HOME}/tools/google-cloud-sdk/path.bash.inc" && source "/Users/ivos/tools/google-cloud-sdk/path.bash.inc"
-
+#test -e "${HOME}/tools/google-cloud-sdk/path.bash.inc" && source "/Users/ivos/tools/google-cloud-sdk/path.bash.inc"
 # The next line enables shell command completion for gcloud.
-test -e "${HOME}/google-cloud-sdk/completion.bash.inc" && source  "/Users/ivos/tools/google-cloud-sdk/completion.bash.inc"
+#test -e "${HOME}/google-cloud-sdk/completion.bash.inc" && source  "/Users/ivos/tools/google-cloud-sdk/completion.bash.inc"
 
 function iterm2_print_user_vars() {
  iterm2_set_user_var gitBranch $((git branch 2> /dev/null) | grep \* | cut -c3-)
