@@ -135,8 +135,6 @@ alias wait='wait-for-it.sh'
 
 alias dl='docker logs'
 alias dk='docker kill'
-#alias yoj='yo jhipster'
-#alias yoji='yo jhipster:import-jdl'
 alias npmi='npm install'
 
 alias d=docker
@@ -144,6 +142,7 @@ alias dclr='docker rm `docker ps --no-trunc -alias -q` '
 alias dim='docker images|less'
 alias dk='docker kill'
 alias dps='docker ps'
+alias prune='docker system prune -f'
 
 alias d_c_clean='printf "\n>>> Deleting stopped containers\n\n" && docker rm $(docker ps -alias -q)'
 alias d_c_kill='docker kill $(docker ps -q)'
@@ -157,13 +156,9 @@ alias di='docker inspect'
 alias dim='docker images|less'
 alias dk='docker kill'
 alias dl='docker logs'
-
 #alias dr='dotnet run'
-
 alias dr='docker run --rm -p8000:8000 -p8001:8001 -p8443:8443 -p8444:8444 '
-
 #export GOROOT=$HOME/go
-
 # this is "regular" go path
 #export GOPATH=/Volumes/Ivo/go
 #export GO111MODULE=off
@@ -210,7 +205,7 @@ alias eh='sudo vi /etc/hosts'
 #export PYTHON_CONFIGURE_OPTS="--enable-framework"
 #eval "$(pyenv init -)"
 alias pip-req='pip install -r requirements.txt'
-alias gmt='go mod tidy'
+alias tidy='go mod tidy'
 
 #echo "docker system prune -f"
 #docker system prune -f
