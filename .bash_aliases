@@ -118,7 +118,7 @@ alias dir=ls
 
 export PATH=$HOME/tools:/usr/local/bin/:$PATH
 
-# M alias C  O S
+# M A C  O S
 
 alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/Bin/subl'
 
@@ -126,7 +126,9 @@ alias ep='subl ~/.profile; source ~/.profile'
 #alias ep='subl ~/.bash_profile; source ~/.bash_profile'
 alias erc='subl ~/.bashrc; source ~/.bashrc'
 alias ezrc='subl ~/.zshrc; source ~/.zshrc'
-alias ea=ep
+
+alias ea='vi ~/dotfiles/.bash_aliases'
+
 # port in use? use with :port e.g. pu :8080
 alias pu='lsof -i '
 
@@ -207,6 +209,32 @@ alias eh='sudo vi /etc/hosts'
 alias pip-req='pip install -r requirements.txt'
 alias tidy='go mod tidy'
 
+
+# Intuitive map function
+# For example, to list all directories that contain a certain file:
+# find . -name .gitattributes | map dirname
+alias map="xargs -n1"
+
+# One of @janmoesen’s ProTip™s
+for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
+	alias "${method}"="lwp-request -m '${method}'"
+done
+
+# IP addresses
+#alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias ip="ipconfig getifaddr en0"
+alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
+# my external ip
+alias ext-ip='curl ifconfig.me'
+alias aii='man ascii'
+# This is an alternative to cron which allows a one-off task to be scheduled for a certain time.
+# echo "ls -l" | at midnight
+
+# Print each PATH entry on a separate line
+alias path='echo -e ${PATH//:/\\n}'
+
+alias mount='mount|column -t'
+
 #echo "docker system prune -f"
 #docker system prune -f
 
@@ -214,6 +242,9 @@ alias tidy='go mod tidy'
 if [ -f '/Users/ivos/tools/google-cloud-sdk/completion.bash.inc' ]; then . '/Users/ivos/tools/google-cloud-sdk/completion.bash.inc'; fi
 
 <<"COMMENT"
+
+https://www.commandlinefu.com/commands/browse/sort-by-votes
+
 
 # !!:$ next to the  command gets argument from previous command
 # !^ gets first argument from previous command
