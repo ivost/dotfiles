@@ -236,6 +236,10 @@ alias mount='mount|column -t'
 
 alias tree="tree -aC -I '.Trash|.git|node_modules' --dirsfirst "$@" | less -FRNX"
 
+alias token="kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}')"
+
+alias graf='kubectl port-forward --namespace monitoring service/grafana 3000:3000'
+
 #echo "docker system prune -f"
 #docker system prune -f
 
@@ -310,6 +314,9 @@ Making HTTP request to self vialias url= http://10.200.10.1:8889
 # redis-cli -r 100 -i 1 info | grep used_memory_human:
 
 # export DOCKER_HOST_IP=10.200.10.1
+
+kubectl run nginx --image=nginx
+
 
 COMMENT
 
