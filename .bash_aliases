@@ -209,7 +209,6 @@ alias eh='sudo vi /etc/hosts'
 alias pip-req='pip install -r requirements.txt'
 alias tidy='go mod tidy'
 
-
 # Intuitive map function
 # For example, to list all directories that contain a certain file:
 # find . -name .gitattributes | map dirname
@@ -234,6 +233,8 @@ alias aii='man ascii'
 alias path='echo -e ${PATH//:/\\n}'
 
 alias mount='mount|column -t'
+
+alias tree="tree -aC -I '.Trash|.git|node_modules' --dirsfirst "$@" | less -FRNX"
 
 #echo "docker system prune -f"
 #docker system prune -f
