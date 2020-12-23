@@ -1,2 +1,40 @@
-https://github.com/mathiasbynens/dotfiles
+a ssh-az='ssh -i ~/.ssh/ivo-ubuntu-1_key.pem   AzureUser@52.250.120.35'
+
+
+alias mm='make menuconfig'
+alias fix='sudo apt --fix-broken install'
+#export CROSS=/opt/gcc-8.2.0/poky/build/tmp-glibc/sysroots/x86_64/usr/bin/arm-oe-linux-gnueabi
+#export PATH=$CROSS:$PATH
+#export PATH=/opt/ptxdist/bin/:$PATH
+
+#CC=/opt/gcc-8.2.0/poky/build/tmp-glibc/sysroots/x86_64/usr/bin/arm-oe-linux-gnueabi/arm-oe-linux-gnueabi-gcc
+#INC=/opt/gcc-8.2.0/poky/build/tmp-glibc/sysroots/x86_64/usr/include
+
+# for python3
+#source ~/environments/bin/activate
+
+# sudo apt install python3.6
+# pipenv --python=python3.6 install gns-server
+# pipenv --python=python3.6 install gns-gui
+
+# 
+a ssh-pi='ssh pi@10.0.1.170'
+
+#Build instruction for RDKB Gateway:
+# repo init -u https://code.rdkcentral.com/r/manifests -m rdkb-extsrc.xml -b techsummit2020/meshconfig
+# repo sync -j4 --no-clone-bundle
+# MACHINE=raspberrypi-rdk-broadband-rpi4  source meta-cmf-raspberrypi/setup-environment
+# bitbake rdk-generic-broadband-image
+#
+
+a bb=bitbake
+
+a in-g='cd ~/rdkb-g && MACHINE=raspberrypi-rdk-broadband-rpi4  source meta-cmf-raspberrypi/setup-environment'
+a bb-g='bitbake rdk-generic-broadband-image'
+
+# repo init -u https://code.rdkcentral.com/r/manifests -b techsummit2020/gaming-arvr -m rdkv-asp-nosrc.xml
+a sync='repo sync -j4 --no-clone-bundle'
+a in-a='MACHINE=raspberrypi-rdk-mc source meta-cmf-raspberrypi/setup-environment'
+a bb-c='bitbake rdk-generic-mediaclient-image'
+
 
