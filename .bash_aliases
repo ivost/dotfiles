@@ -10,9 +10,10 @@
 export PS1="\T \W$ "
 export HISTCONTROL=erasedups
 export HISTSIZE=10000
-export HISTFILESIZE=10000
+export HISTFILESIZE=10000pwd
+
 # dont save commands starting with space 
-export HISTIGNORE="[ \t]*:pwd:ls:ll:h:a:rm"
+#export HISTIGNORE="[ \t]*:pwd:ls:ll:h:a:rm"
 #export HISTIGNORE="rm *:h:a"
 
 #MYIP=$(ifconfig | grep 'inet addr:'| grep -v '127.0.0.1' | tail -1 | cut -d: -f2 | awk '{ print $1}')
@@ -301,10 +302,10 @@ a sa1='ssh -i ~/.ssh/ivostoy-897440107178keypair.pem ubuntu@52.40.243.181'
 # export R4=10.0.1.194
 # a r4='ssh pi@$R4'
 
-a vlc='/Applications/VLC.app/Contents/MacOS/VLC'
+#a vlc='/Applications/VLC.app/Contents/MacOS/VLC'
 
-export OPENSSL_DIR=/usr/local/opt/openssl
-export OPENSSL_ROOT_DIR=/usr/local/opt/openssl
+#export OPENSSL_DIR=/usr/local/opt/openssl
+#export OPENSSL_ROOT_DIR=/usr/local/opt/openssl
 
 # export OPENSSL_DIR=/usr/local/Cellar/openssl@1.1/1.1.1g
 # export OPENSSL_ROOT_DIR=/usr/local/Cellar/openssl@1.1/1.1.1g
@@ -355,5 +356,46 @@ if type brew &>/dev/null; then
   fi
 fi
 
+export DV_SDK_VER=r3.6.2
 
+export DV_SDK_HOME=$HOME/DV-SDK
+export DV_SDK_VER_HOME=$DV_SDK_HOME/DV-SDK-${DV_SDK_VER}
+export DV_SDK_ROOT=$DV_SDK_VER_HOME/dv-sdk-${DV_SDK_VER}
+export DVNC_OUTDIR=$DV_SDK_VER_HOME/${MODEL}-${FRAMEWORK}
+export BOARD=fury;
+export DV_TGT_ROOT=$DVNC_OUTDIR
+export USB=0
 
+export MODEL=mobilenet
+export FRAMEWORK=caffe
+
+export MODEL_WEIGHTS=$DV_SDK_ROOT/modelzoo/caffe/mobilenet/mobilenet.caffemodel
+export MODEL_NETWORK=$DV_SDK_ROOT/modelzoo/caffe/mobilenet/mobilenet.prototxt
+export MODEL_DIMENSION="3,224,224"
+
+export CONV_WEIGHTS=$DVNC_OUTDIR/converter/converted.caffemodel
+export CONV_NETWORK=$DVNC_OUTDIR/converter/converted.prototxt
+export QUANTIZE_IMAGES=$DV_SDK_ROOT/modelzoo/caffe/mobilenet/quantize
+export TAGS=$DV_SDK_ROOT/modelzoo/caffe/mobilenet/mobilenet.tags
+export LABELS=$DV_SDK_ROOT/modelzoo/caffe/mobilenet/mobilenet.label
+export APP_DIR=$DV_TGT_ROOT/linux/nnapp/x86/classification/static_simple
+export NNAPP=$APP_DIR/bld/nnapp_classification_static
+
+[[ ! -d $DV_SDK_ROOT ]] && echo -e "CHECK $DV_SDK_ROOT"
+
+[[ ! -d $DVNC_OUTDIR ]] && mkdir -p $DVNC_OUTDIR
+
+alias cd-dv='cd $DV_SDK_ROOT'
+
+export PATH="/home/ivo/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+export V=$HOME/Videos
+
+a DVdriver='pushd $DV_SDK_ROOT/linux/scripts; sh dv_drv_insmod.sh pcie=1 usb=0 sclk=750 dram=1 host_dram=0 board=fury; popd'
+a cd-d='cd $DV_SDK_ROOT/linux/nnapp/x86'
+
+export CV=/opt/deepvision/opencv
+export PATH=$CV/bin:$PATH
+. setup_vars_opencv4.sh
