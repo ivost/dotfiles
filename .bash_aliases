@@ -399,3 +399,6 @@ a cd-d='cd $DV_SDK_ROOT/linux/nnapp/x86'
 export CV=/opt/deepvision/opencv
 export PATH=$CV/bin:$PATH
 . setup_vars_opencv4.sh
+
+a list-srv='sudo systemctl list-units --type service'
+a show-srv-stat='sudo systemctl status $1'
