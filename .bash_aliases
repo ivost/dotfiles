@@ -10,7 +10,7 @@
 export PS1="\T \W$ "
 export HISTCONTROL=erasedups
 export HISTSIZE=10000
-export HISTFILESIZE=10000pwd
+export HISTFILESIZE=10000
 
 # dont save commands starting with space 
 #export HISTIGNORE="[ \t]*:pwd:ls:ll:h:a:rm"
