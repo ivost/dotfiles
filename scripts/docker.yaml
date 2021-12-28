@@ -1,0 +1,24 @@
+---
+users:
+  - name: ubuntu
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDXQIEhBdEx3Cw47FKitHmMMHsYEWQw95LsspvZRSbBzJegBkozOvKX+wlby6ZsmK8itl5oQNMdxOAguOVFKCeG4KSA9m6ikttKqmzP1RAkyR2FkYlD2SEQHv5YpBkf5ER9sPAyqNz+N4GhQoGefkBpDUAhscVDTkSO5ktIj1lMUECFWiVR3yO3y9tEOxZAFn3UTDohO6TAKFWKpRvSkR3/8opb6UDP+Y3PW2PTv1lfeR/oUNKwovCMh4hDAPxZng4XOWllEWgiMlpaOlEcMCAW12GlyxZttU7Kb7KvDCqnHzQ2nQNsCpWbVAJFsCqWR8eobLuKmf9+34EGxqHOuGHH ivo@Ivos-MacBook-Pro.local
+package_update: true
+packages:
+  - docker
+  - avahi-daemon
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - gnupg
+  - lsb-release
+runcmd:
+  - sudo curl -fsSL https://get.docker.com | sudo bash
+  - sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  - sudo chmod +x /usr/local/bin/docker-compose
+  - sudo systemctl enable docker
+  - sudo systemctl enable -s HUP ssh
+  - sudo groupadd docker
+  - sudo usermod -aG docker ubuntu
+  - sudo systemctl daemon-reload  
