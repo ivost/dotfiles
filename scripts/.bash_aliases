@@ -4,7 +4,7 @@
 #set -e
 
 #echo 🔥 ✋ 🛑  💣
-### echo v.2021.12.31
+### echo v.2022.01.01
 #echo 🔥 ✋ 🛑  💣
 
 
@@ -434,3 +434,8 @@ a pass-gen='openssl rand -base64 10'
 # raspberry pi 8GB  pi `
 export R4=192.168.7.226
 a r4='ssh pi@$R4'
+
+# https://rtyley.github.io/bfg-repo-cleaner/
+alias bfg='java -jar ~/tools/bfg-1.14.0.jar'
+
+
