@@ -289,16 +289,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 a p=python
-# eval "$(pyenv init -)"
-# export A1=51.143.89.221
-# a az1='ssh -i ~/.ssh/ivo-ubuntu-1_key.pem ivo@$A1'
-# #export R3=10.0.1.20
-# export R3=10.0.1.4
-# a r3='ssh pi@$R3'
-# a sa1='ssh -i ~/.ssh/ivostoy-897440107178keypair.pem ubuntu@52.40.243.181'
-# export R4=10.0.1.194
-# a r4='ssh pi@$R4'
-# a vlc='/Applications/VLC.app/Contents/MacOS/VLC'
 
 export OPENSSL_DIR=/usr/local/opt/openssl
 export OPENSSL_ROOT_DIR=/usr/local/opt/openssl
@@ -365,18 +355,6 @@ a kaf='kubectl apply -f'
 a kdf='kubectl delete -f'
 
 
-# /usr/local/opt/rabbitmq/sbin/rabbitmq-server
-# Management Plugin enabled by default at http://localhost:15672
-# or
-#  brew services start rabbitmq
-
-# brew services start grafana
-
-
-# /usr/local/opt/grafana/bin/grafana-server --config /usr/local/etc/grafana/grafana.ini --homepath /usr/local/opt/grafana/share/grafana --packaging=brew cfg:default.paths.logs=/usr/local/var/log/grafana cfg:default.paths.data=/usr/local/var/lib/grafana cfg:default.paths.plugins=/usr/local/var/lib/grafana/plugins
-# logger=sqlstore path=/usr/local/var/lib/grafana/grafana.db
-
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -396,28 +374,33 @@ a ave='source .venv/bin/activate'
 a mk='minikube'
 a mke='eval $(minikube docker-env)'
 a c=chalice
-# start docker in multipass instance
+
+# install docker in multipass
 a std='multipass launch -c 4 -m 6G -d 40G -n docker 20.04 --cloud-init ~/dotfiles/scripts/docker.yaml'
+
+# start docker in multipass instance
+a std='multipass start docker'
 a mp=multipass
 a s-u='ssh ubuntu@docker.local'
 
-export DOCKER_BUILDKIT=1
+# export DOCKER_BUILDKIT=1
 export CDK_DEFAULT_ACCOUNT=897440107178
 export CDK_DEFAULT_REGION=us-east-1
+
 # export DOCKER_HOST="ssh://ubuntu@docker.local"
-# export DOCKER_HOST=192.168.64.7
-export DOCKER_HOST=localhost
+# export DOCKER_HOST=192.168.64.7:22
+# export DOCKER_HOST=localhost
+
+a d-ctx='docker context create dock --docker "host=ssh://ubuntu@docker.local"'
+a d-u='docker context use dock'
+
+export DOCKER_CONTEXT=dock
 
 a bss='brew services start'
 a bsp='brew services stop'
 
 a k-s='bss zookeeper; bss kafka'
 a k-p='bsp kafka; bsp zookeeper'
-
-a k-tc='kafka-topics --bootstrap-server localhost:9092 --create --topic test --replication-factor 1 --partitions 1'
-a k-tl='kafka-topics --bootstrap-server localhost:9092 --list'
-a k-pr='kafka-console-producer --broker-list localhost:9092 --topic test'
-a k-con='kafka-console-consumer --bootstrap-server localhost:9092 --topic test'
 
 # a kaf='docker run --rm -p 2181:2181 -p 3030:3030 -p 8081-8083:8081-8083 -p 9581-9585:9581-9585 -p 9092:9092 -e ADV_HOST=$DOCKER_HOST lensesio/fast-data-dev:latest'
 # in vm
@@ -427,15 +410,35 @@ a k-con='kafka-console-consumer --bootstrap-server localhost:9092 --topic test'
 
 # kafdrop https://github.com/obsidiandynamics/kafdrop
 # a kd='java --add-opens=java.base/sun.nio.ch=ALL-UNNAMED -jar target/kafdrop-3.28.0-SNAPSHOT.jar --kafka.brokerConnect=192.168.64.7:9092'
-a k-d='cd ~/github/kafdrop; java -jar target/kafdrop-3.28.0-SNAPSHOT.jar --kafka.brokerConnect=localhost:9092'
 
-a pass-gen='openssl rand -base64 10'
+a p-g='openssl rand -base64 7'
 
 # raspberry pi 8GB  pi `
 export R4=192.168.7.226
 a r4='ssh pi@$R4'
 
+# to remove files from git history/reflogs
 # https://rtyley.github.io/bfg-repo-cleaner/
 alias bfg='java -jar ~/tools/bfg-1.14.0.jar'
 
+# docker context use dock
+# ssh port forwarding / tunnel
+# ssh -L local_port:destination_server_ip:remote_port ssh_server_hostname
+
+# kafka cluster created in multipass docker instance
+# rpk container start -n 3
+# this works both on host (my mac) and guest (ubu/multipass)
+# rpk cluster info --brokers 127.0.0.1:45405,127.0.0.1:37999,127.0.0.1:41145
+# rpk container stop
+# rpk container purge
+a k-tun='ssh -L 45405:127.0.0.1:45405 -L 37999:127.0.0.1:37999  -L 41145:127.0.0.1:41145  -C -N -l ubuntu docker.local'
+
+
+export KB=127.0.0.1:45405
+
+a k-tc='kafka-topics --bootstrap-server $KB --create --topic test --replication-factor 3 --partitions 4'
+a k-tl='kafka-topics --bootstrap-server $KB --list'
+a k-pr='kafka-console-producer --broker-list $KB --topic test --property "parse.key=true" --property "key.separator=:"'
+a k-con='kafka-console-consumer --bootstrap-server $KB --topic test'
+a k-d='cd ~/github/kafdrop; java -jar target/kafdrop-3.28.0-SNAPSHOT.jar --kafka.brokerConnect=$KB'
 
